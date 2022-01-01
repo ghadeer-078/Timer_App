@@ -4,6 +4,7 @@ import android.content.Context
 import android.preference.PreferenceManager
 import com.example.timer_app.Model.TimerState
 
+
 class PrefUtil {
 
     companion object {

@@ -14,7 +14,8 @@ import android.widget.TextView
 import com.example.timer_app.Model.TimerState
 import com.example.timer_app.databinding.ActivityMainBinding
 import com.example.timer_app.util.PrefUtil
-import com.example.timer_app.util.TimerExpiredReceiver
+import com.example.timer_app.Receiver.TimerExpiredReceiver
+import com.example.timer_app.util.NotificationUtil
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar
 import java.util.*
@@ -105,6 +106,7 @@ class MainActivity : AppCompatActivity() {
         //remove background timer,
         removeAlarm(this)
         //hide notification
+        NotificationUtil.hideTimerNotification(this)
     }
 
     override fun onPause() {
@@ -116,9 +118,11 @@ class MainActivity : AppCompatActivity() {
             //start background timer,
             val wakeUpTime = setAlarm(this, nowSeconds, secondRemaining)
             //show notification
+            NotificationUtil.showTimerRunning(this, wakeUpTime)
 
         } else if (timerState == TimerState.Paused) {
             //show notification
+            NotificationUtil.showTimerPaused(this)
         }
 
         PrefUtil.setPreviousTimerLengthSeconds(timerLengthSecond, this)
